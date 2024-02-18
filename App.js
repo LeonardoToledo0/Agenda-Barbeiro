@@ -1,17 +1,41 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Home } from "./src/pages/PageHome/Home"
 import { Galeria } from "./src/pages/PagesGaleria /Galeria"
 import { Login } from "./src/pages/PageLogin/Login"
 import { Perfil } from "./src/pages/PageLogin/PagePerfil/Perfil"
 import { Ionicons } from '@expo/vector-icons'
 import { Agenda } from './src/pages/PageAgenda/Agenda';
+import * as S from './AppStyles'
+import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';;
 
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
+const UserProfile = () => {
+
+  const profileImage = require('./src/images/Avatar.png');
+
+  return (
+    <S.ProfileContainer>
+      <S.ProfileImage source={profileImage} />
+      <S.ProfileName>Seu Nome</S.ProfileName>
+    </S.ProfileContainer>
+  );
+};
+
+const CustomDrawerContent = (props) => {
+  return (
+    <DrawerContentScrollView {...props}>
+      <UserProfile />
+      <DrawerItemList {...props} />
+    </DrawerContentScrollView>
+  );
+};
+
 
 const Conta = () => {
 
@@ -26,46 +50,50 @@ const Conta = () => {
 const App = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen
+      <Drawer.Navigator
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
+      >
+        <Drawer.Screen
           name="Home"
           component={Home}
           options={{
-            tabBarIcon: ({ color, size }) => (
+            drawerIcon: ({ color, size }) => (
               <Ionicons name="home" color={color} size={size} />
             ),
           }}
         />
-        <Tab.Screen
-          name="Agenda"
-          component={Agenda}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="calendar" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
+        <Drawer.Screen
           name="Galeria"
           component={Galeria}
           options={{
-            tabBarIcon: ({ color, size }) => (
+            drawerIcon: ({ color, size }) => (
               <Ionicons name="images" color={color} size={size} />
             ),
           }}
         />
-        <Tab.Screen
+        <Drawer.Screen
+          name="Agenda"
+          component={Agenda}
+          options={{
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="calendar" color={color} size={size} />
+            ),
+          }}
+        />
+
+        <Drawer.Screen
           name="Conta"
           component={Conta}
           options={{
-            tabBarIcon: ({ color, size }) => (
+            drawerIcon: ({ color, size }) => (
               <Ionicons name="person-circle-sharp" color={color} size={size} />
             ),
           }}
         />
-      </Tab.Navigator>
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
+
 
 export default App;
