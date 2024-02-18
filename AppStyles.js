@@ -4,7 +4,7 @@ import { View, Image, Text } from "react-native";
 
 export const ProfileContainer = styled(View)`
 padding: 16px;
-border-bottom-width:1 ;
+border-bottom-width:1px;
 border-bottom-color: #ccc;
 align-items: center;
 `
@@ -12,7 +12,7 @@ align-items: center;
 export const ProfileImage = styled(Image)`
 width: 80px;
 height :80px;
-border-radius: 40%;
+border-radius: 40px;
 `
 
 
